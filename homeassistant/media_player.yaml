@@ -1,0 +1,13 @@
+- platform: pandora
+- platform: plex
+  ssl: true
+  verify: false
+#- platform: samsungtv
+#  host: 192.168.1.127
+#  port: 8080
+- platform: vlc
+  name: local_media
+  arguments: '--alsa-audio-device=hw:0,0'
+- platform: spotify
+  client_id: eef77b137fe4427ca54003f359e264cb
+  client_secret: fb8c1457e0264202b5a3c0302e16555b

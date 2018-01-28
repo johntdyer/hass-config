@@ -1,0 +1,15 @@
+- platform: speedtest
+  monitored_conditions:
+    - ping
+    - download
+    - upload
+- platform: dnsip
+- platform: yr
+- platform: plex
+  host: mvp
+  name: MVP
+  token: !secret plex_token
+- platform: template
+  sensors:
+    downstairs_roomba_battery:
+      value_template: "{{ states.vacuum.downstairs_vacuum.attributes.battery_level }}"

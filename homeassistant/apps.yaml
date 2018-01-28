@@ -1,0 +1,6 @@
+adaptive_timer:
+  module: algo_timer
+  class: SmartTimer
+  db_location: /home/hass/.home-assistant/home-assistant_v2.db #your database location here
+  entity_id: switch.closet_light_switch #your entity here
+  debug: True

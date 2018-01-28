@@ -1,0 +1,15 @@
+  - firstname: Matt
+    lastname: Davidson
+    gender: male
+    relationships:
+      #- person: person.anna_bell
+      #  relation: WIFE
+    device_trackers:
+      - device_tracker.samsungsmn920v
+      - device_tracker.keys
+      - device_tracker.matdavidm91mp
+  - firstname: Krissy
+    lastname: Davidson
+    gender: female
+    device_trackers:
+      - device_tracker.iphone

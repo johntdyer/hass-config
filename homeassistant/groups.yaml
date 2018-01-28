@@ -1,0 +1,26 @@
+#default_view:
+#  view: yes
+#  entities: 
+#  #- group.holiday_lights
+#  - group.downstairs
+
+living_room:
+  name: "Living Room"
+  entities:
+  - media_player.living_room
+  - media_player.samsung_tv_remote
+
+downstairs:
+  name: "Downstairs"
+  view: yes
+  entities:
+  - group.living_room
+  - vacuum.downstairs_roomba
+
+holiday_lights:
+  view: yes
+  name: "Holiday Lights"
+  entities:
+  - zwave.outdoor_outlet_controller
+  - switch.outdoor_outlet_controller_switch
+  - switch.indoor_outlet_controller_switch

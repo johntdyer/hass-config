@@ -1,0 +1,6 @@
+- platform: ffmpeg
+  input: rtsp://192.168.1.126:554/live0.264
+  name: CAM_1_RTSP
+- platform: ffmpeg
+  input: rtsp://192.168.1.128:554/live0.264
+  name: CAM_2_RTSP

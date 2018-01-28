@@ -1,0 +1,95 @@
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: Home
+  # Location required to calculate the time the sun rises and sets
+  latitude: !secret latitude
+  longitude: !secret longitude
+  # Impacts weather/sunrise data
+  elevation: 243
+  # metric for Metric, imperial for Imperial
+  unit_system: imperial
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: America/New_York
+  customize: !include customize.yaml
+
+map:
+logger:
+  default: info
+
+# Show links to resources in log and frontend
+#introduction:
+
+# Show config in frontend
+config:
+
+recorder:
+  purge_interval: 1
+  purge_keep_days: 14
+
+zwave:
+        #  usb_path: /dev/serial/by-id/usb-0658_0200-if00
+  usb_path: /dev/serial/by-id/usb-0658_0200-if00
+  network_key: !secret zwave_plus_key
+  polling_interval: 6000
+
+# Enables the frontend
+frontend: !include frontend.yaml
+tts: !include tts.yaml
+
+http:
+  # Uncomment this to add a password (recommended!)
+  # api_password: PASSWORD
+
+automation: !include automations.yaml
+
+# Checks for available updates
+updater:
+
+# Discover some devices automatically
+discovery:
+
+# Allows you to issue voice commands from the frontend in enabled browsers
+conversation:
+
+# Enables support for tracking state changes over time.
+history:
+  exclude:
+    domains:
+    - zwave
+
+# View all events in a logbook
+logbook:
+
+# Track the sun
+sun:
+
+# Weather Prediction
+sensor: !include sensor.yaml
+
+mqtt:
+  broker: 127.0.0.1
+  port: 1883
+  client_id: home-assistant-1
+  username: pi
+  password: raspberry
+
+device_tracker: !include device_tracker.yaml
+
+alarm_control_panel:
+  platform: alarmdotcom
+  username: smokes2345@gmail.com
+  password: fisher42
+
+media_player: !include media_player.yaml
+
+ffmpeg:
+  ffmpeg_bin: /usr/bin/avconv
+
+person: !include person.yaml
+group: !include groups.yaml
+#camera: !include cameras.yaml
+zone: !include zones.yaml
+
+notify: !include notification.yaml
+
+vacuum: !include vacuums.yaml

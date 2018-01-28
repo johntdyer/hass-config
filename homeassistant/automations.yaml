@@ -1,0 +1,77 @@
+- alias: Regular thursday morning vacuum
+  id: '15'
+  action:
+  - entity_id: vacuum.downstairs_vacuum
+    service: vacuum.turn_on
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.downstairs_roomba_battery
+    above: 99
+  condition:
+    condition: time
+    weekday: thu
+    after: 00:00:00
+    before: 06:00:00
+- action:
+  - entity_id: vacuum.downstairs_vacuum
+    service: vacuum.turn_off
+  alias: turn off downstairs_vacuum when battery is low
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.downstairs_roomba_battery
+    below: 25
+  id: '10'
+- alias: Turn on Xmas lights at night
+  id: '1'
+  trigger:
+  - platform: sun
+    event: sunset
+  action:
+    service: switch.turn_on
+    entity_id: group.holiday_lights
+- alias: Turn off Xmas lights at sunrise
+  id: '2'
+  trigger:
+  - platform: sun
+    event: sunrise
+  action:
+    service: switch.turn_off
+    entity_id: group.holiday_lights
+- alias: Turn off Xmas lights at bedtime
+  id: '3'
+  trigger:
+  - platform: time
+    at: 01:00:00
+  action:
+    service: switch.turn_off
+    entity_id: group.holiday_lights
+- alias: Greeting with lights
+  id: '4'
+  trigger:
+  - platform: state
+    entity_id: switch.indoor_outlet_controller_switch
+    from: 'off'
+    to: 'on'
+  action:
+    service: media_player.play_media
+    entity_id: media_player.local_media
+    data:
+      media_content_id: /home/hass/sounds/Hallelujah-sound-effect.mp3
+      media_content_type: music
+- alias: Start vacuums when no one is home
+  id: '5'
+  trigger:
+  - platform: state
+    entity_id: alarm_control_panel.alarmcom
+    to: armed_away
+  action:
+    service: vacuum.turn_on
+- action:
+  - service: lock.lock
+  alias: Lockdown when alarm is set
+  condition: []
+  id: '1515854398697'
+  trigger:
+  - entity_id: alarm_control_panel.alarmcom
+    from: disarmed
+    platform: state

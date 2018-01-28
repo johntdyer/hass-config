@@ -1,0 +1,5 @@
+- platform: roomba
+  name: downstairs_vacuum
+  host: 192.168.1.22
+  username: !secret roomba1_blid
+  password: !secret roomba1_password

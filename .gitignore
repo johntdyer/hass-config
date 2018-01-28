@@ -1,0 +1,5 @@
+*.pyc
+*.retry
+home-assistant_v2.db
+home-assistant.log
+secrets.yaml
