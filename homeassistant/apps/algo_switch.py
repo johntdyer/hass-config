@@ -3,13 +3,12 @@ import sqlite3
 from datetime import datetime, timedelta
 
 #
-#
 # Automatically turn off entity after averaged amount of time
 #
 
 
-def convert_timestamp(timestamp):
-    return datetime.utcfromtimestamp(timestamp)
+def roundx(i, bound=60):
+    return int(round(i / bound) * bound) or bound
 
 
 class SmartTimer(appapi.AppDaemon):
@@ -25,48 +24,39 @@ class SmartTimer(appapi.AppDaemon):
             "CREATE TABLE IF NOT EXISTS `averages` ( `intvl_start` FLOAT NOT NULL UNIQUE, `intvl_sum` FLOAT NOT NULL, `intvl_count` INTEGER NOT NULL, `intvl_avg` FLOAT NOT NULL )")
         self.log("Database setup complete!")
         self.listen_state(
-            self.begin_interval, self.args['entity_id'], new=self.args.get('begin', 'on'))
+            self.begin_interval, self.args['entity_id'], new=self.args.get('begin', 'on'), old=self.args.get('end', 'off'))
         self.listen_state(
-            self.end_interval, self.args['entity_id'], new=self.args.get('end', 'off'))
+            self.end_interval, self.args['entity_id'], new=self.args.get('end', 'off'), old=self.args.get('begin', 'on'))
         intvl_cursor = db.execute("SELECT intvl_start FROM averages")
         if self.args.get('preload', True) and len(intvl_cursor.fetchall()) == 0:
             self.preload()
         self.log("Completed SmartTimer setup")
         db.commit()
         db.close()
-        # Path to our DB as defined in apps.yaml
-        #db_location = self.args["db_location"]
 
-        # Set up callback and listen for state change of desired switch
-        # self.listen_state(self.calculate_times,
-        #                  self.args["entity_id"], db_location=db_location)
-        # self.log("Initializing.. DB located at: {}".format(
-        #    db_location), level='WARN')
-
-    def schedule_off(self):
-        db = sqlite3.connect(self.db)
+    def schedule_off(self, db):
         cur = db.cursor()
         cur.execute(
             "SELECT intvl_avg from averages where intvl_start = (select max(intvl_start) from averages)")
         last_avg = cur.fetchone()
         if last_avg:
-            last_avg = last_avg[0]
+            last_avg = roundx(
+                last_avg[0], bound=self.args.get('default_interval', 60))
         else:
-            last_avg = self.args.get('default_interval', 12)
+            last_avg = self.args.get('default_interval', 60)
         self.log("Scheduling {} to turn {} in {} seconds".format(
-            self.args['entity_id'], 'off', last_avg))
+            self.args['entity_id'], self.args.get('end', 'off'), last_avg))
         self.run_in(self.average_exceeded, last_avg)
         db.commit()
-        db.close()
 
     def begin_interval(self, entity, attribute, old, new, kwargs):
         timestamp = datetime.utcnow().timestamp()
         if new == self.args.get('begin', 'on'):
             self.log("{} changed to state {} at {}".format(
                 entity, new, timestamp))
-            self.schedule_off()
             db = sqlite3.connect(self.db)
             cur = db.cursor()
+            self.schedule_off(db)
             cur.execute(
                 "SELECT `start`, `end`, `split` from intervals where start = (select max(start) from intervals)")
             prev_intvl = cur.fetchone()
@@ -92,7 +82,6 @@ class SmartTimer(appapi.AppDaemon):
             cursor = db.execute(
                 "SELECT * from intervals where start = (select max(start) from intervals)")
             results = cursor.fetchall()
-            # if len(results) == 1:
             self.log("Latest interval: {}".format(results[0]))
             latest_start = results[0][0]
             cursor.execute("UPDATE intervals SET end = ? WHERE start = ?",
@@ -112,8 +101,6 @@ class SmartTimer(appapi.AppDaemon):
                            (latest_start, intvl_sum, len(rows), avg))
             db.commit()
             db.close()
-
-    # Calculate the average amount of time a switch is on
 
     def preload(self):
         # Calculate past lengths of time
@@ -180,16 +167,9 @@ class SmartTimer(appapi.AppDaemon):
             except NameError:
                 pass
 
-                # Calculate average time spent "on"
         average = sum(times, 0) / len(times)
-        # Get total seconds from datetime hours, minutes, seconds
-        #average_seconds = int(timedelta.total_seconds(average))
         self.log("Preload complete, average: {}".format(average))
         conn.close()
-        # Schedule our turn_off action X seconds in the future, the average time entity has spent is "on"
-        # self.log("Scheduling turn_off of %s in %s seconds." %
-        #         (self.args["entity_id"], str(average_seconds)))
-        #self.run_in(self.average_exceeded, average_seconds)
 
     def average_exceeded(self, kwargs):
         self.log("Average time exceeded, turning off %s" %
