@@ -1,3 +1,5 @@
+hadashboard:
+  dash_url: http://jasper:5050
 AppDaemon:
   #logfile: /var/log/appdaemon/appdaemon.log
   #errorfile: /var/log/appdaemon/appdaemon.err
@@ -18,4 +20,3 @@ AppDaemon:
 HASS:
   ha_url: http://localhost:8123
   #  ha_key: <some key>
-

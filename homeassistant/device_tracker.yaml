@@ -1,11 +1,12 @@
-#- platform: ddwrt
-#  host: 192.168.1.1
-#  username: root
-#  password: fisher42
-#- platform: bluetooth_le_tracker
-#  track_new_devices: no
+- platform: ddwrt
+  host: 192.168.1.1
+  username: root
+  password: fisher42
+  track_new_devices: no
+- platform: bluetooth_le_tracker
+  track_new_devices: no
 - platform: trackr
   username: smokes2345@gmail.com
   password: fisher42
-- platform: nmap_tracker
-  hosts: 192.168.1.0/24
+#- platform: nmap_tracker
+#  hosts: 192.168.1.0/24

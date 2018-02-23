@@ -1,0 +1,8 @@
+run_vacuums:
+  name: Run Vacuums
+  initial: off
+  icon: mdi:roomba
+
+tvs_off:
+  name: keep tvs off
+  initial: off

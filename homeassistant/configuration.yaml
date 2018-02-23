@@ -53,9 +53,6 @@ conversation:
 
 # Enables support for tracking state changes over time.
 history:
-  exclude:
-    domains:
-    - zwave
 
 # View all events in a logbook
 logbook:
@@ -91,5 +88,7 @@ group: !include groups.yaml
 zone: !include zones.yaml
 
 notify: !include notification.yaml
+
+input_boolean: !include input_boolean.yaml
 
 vacuum: !include vacuums.yaml

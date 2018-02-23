@@ -4,14 +4,16 @@
   - entity_id: vacuum.downstairs_vacuum
     service: vacuum.turn_on
   trigger:
-  - platform: numeric_state
+  - above: '99'
     entity_id: sensor.downstairs_roomba_battery
-    above: 99
+    platform: numeric_state
+  - at: 00:00:00
+    platform: time
   condition:
+  - after: 00:00:00
+    before: 06:00:00
     condition: time
     weekday: thu
-    after: 00:00:00
-    before: 06:00:00
 - action:
   - entity_id: vacuum.downstairs_vacuum
     service: vacuum.turn_off
@@ -61,11 +63,12 @@
 - alias: Start vacuums when no one is home
   id: '5'
   trigger:
-  - platform: state
-    entity_id: alarm_control_panel.alarmcom
+  - entity_id: alarm_control_panel.alarmcom
+    platform: state
     to: armed_away
   action:
-    service: vacuum.turn_on
+  - service: input_boolean.turn_on
+    entity_id: input_boolean.run_vacuums
 - action:
   - service: lock.lock
   alias: Lockdown when alarm is set
@@ -75,3 +78,61 @@
   - entity_id: alarm_control_panel.alarmcom
     from: disarmed
     platform: state
+- action:
+  - service: vacuum.turn_on
+  alias: Start vacuums when boolean set
+  condition:
+  - condition: state
+    entity_id: input_boolean.run_vacuums
+    state: 'on'
+  id: '1518673306804'
+  trigger:
+  - entity_id: input_boolean.run_vacuums
+    from: '0'
+    platform: state
+    to: '1'
+  - above: '99'
+    entity_id: sensor.downstairs_roomba_battery
+    platform: numeric_state
+
+- id: '123456'
+  alias: "Send Roku home when boolean enabled"
+  action:
+  - service: media_player.select_source
+    entity_id: media_player.living_room,media_player.office #,media_player.master_br
+    data:
+      source: 'Home'
+  trigger:
+  - entity_id: media_player.living_room
+    platform: 'state'
+    to: 'playing'
+#  - entity_id: media_player.master_br
+#    platform: 'state'
+#    to: 'playing'
+  - entity_id: media_player.office
+    platform: 'state'
+    to: 'playing'
+  - entity_id: input_boolean.tvs_off
+    platform: 'state'
+    to: 'on'
+  condition:
+  - entity_id: input_boolean.tvs_off
+    condition: 'state'
+    state: 'on'
+
+- id: '234567'
+  alias: "Turn on corner lamp for olivia"
+  action:
+  - service: switch.turn_on
+    entity_id: switch.corner_lamp_switch
+  trigger:
+  - platform: time
+    after: '06:15:00'
+  condition:
+  - condition: time
+    weekday:
+    - mon
+    - tue
+    - wed
+    - thu
+    - fri
