@@ -1,0 +1,20 @@
+media_player.master_bedroom_tv:
+  name:
+  platform: cast
+  unique_id: d76d917d-8a1c-da14-c243-d0a19ef8c986
+switch.switch:
+  name:
+  platform: zwave
+  unique_id: 2-72057594076282880
+switch.switch_2:
+  name:
+  platform: zwave
+  unique_id: 4-72057594109837312
+switch.switch_3:
+  name:
+  platform: zwave
+  unique_id: 5-72057594126614528
+switch.switch_4:
+  name:
+  platform: zwave
+  unique_id: 6-72057594143391744

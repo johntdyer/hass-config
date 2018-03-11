@@ -1,3 +1,5 @@
+.uuid
+.HA_VERSION
 .DS_Store
 OZW_Log.txt
 *.bak
@@ -7,7 +9,7 @@ tts
 __pycache__
 *.pyc
 *.retry
-home-assistant_v2.db
+home-assistant_v2.db*
 home-assistant.log
 secrets.yaml
 zwcfg_*.xml

@@ -1,0 +1,34 @@
+{
+   "bridge": {
+      "username": "CC:22:3D:E3:CE:31",
+      "name": "Homebridge",
+      "pin": "031-45-154",
+      "port": 51826
+   },
+   "platforms": [
+      {
+         "default_visibility": "visible",
+         "logging": true,
+         "name": "HomeAssistant",
+         "supported_types": [
+            "automation",
+            "binary_sensor",
+            "cover",
+            "fan",
+            "group",
+            "input_boolean",
+            "light",
+            "lock",
+            "media_player",
+            "remote",
+            "scene",
+            "script",
+            "sensor",
+            "switch",
+            "vacuum"
+         ],
+         "platform": "HomeAssistant",
+         "host": "http://mickey:8123"
+      }
+   ]
+}

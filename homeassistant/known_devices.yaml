@@ -86,3 +86,102 @@ samsungsmn950u:
   picture: null
   track: true
   vendor: unknown
+
+jasper:
+  hide_if_away: false
+  icon:
+  mac: B8:27:EB:0B:67:70
+  name: jasper
+  picture:
+  track: false
+  vendor: Raspberry Pi Foundation
+
+xboxone:
+  hide_if_away: false
+  icon:
+  mac: B4:AE:2B:10:B9:71
+  name: XboxOne
+  picture:
+  track: false
+  vendor: Microsoft
+
+409f382a2254:
+  hide_if_away: false
+  icon:
+  mac: 40:9F:38:2A:22:54
+  name: 409f382a2254
+  picture:
+  track: false
+  vendor: AzureWave Technology Inc.
+
+b8a1753ccd09:
+  hide_if_away: false
+  icon:
+  mac: B8:A1:75:3C:CD:09
+  name: '*'
+  picture:
+  track: false
+  vendor: Roku, Inc.
+
+office:
+  hide_if_away: false
+  icon:
+  mac: B0:A7:37:B1:08:DB
+  name: Office
+  picture:
+  track: false
+  vendor: Roku, Inc.
+
+0002d15f3f2c:
+  hide_if_away: false
+  icon:
+  mac: 00:02:D1:5F:3F:2C
+  name: '*'
+  picture:
+  track: false
+  vendor: Vivotek, Inc.
+
+88dea9af4f35:
+  hide_if_away: false
+  icon:
+  mac: 88:DE:A9:AF:4F:35
+  name: '*'
+  picture:
+  track: false
+  vendor: Roku, Inc.
+
+0002d15f1b6b:
+  hide_if_away: false
+  icon:
+  mac: 00:02:D1:5F:1B:6B
+  name: '*'
+  picture:
+  track: false
+  vendor: Vivotek, Inc.
+
+430gsr4100kn:
+  hide_if_away: false
+  icon:
+  mac: 00:7E:56:F6:51:13
+  name: 430GSR4100KN
+  picture:
+  track: false
+  vendor: unknown
+
+f80d60d1fc91:
+  hide_if_away: false
+  icon:
+  mac: F8:0D:60:D1:FC:91
+  name: f80d60d1fc91
+  picture:
+  track: false
+  vendor: unknown
+
+3801951f46bc:
+  hide_if_away: false
+  icon:
+  mac: 38:01:95:1F:46:BC
+  name: '*'
+  picture:
+  track: false
+  vendor: Samsung Electronics Co.,Ltd

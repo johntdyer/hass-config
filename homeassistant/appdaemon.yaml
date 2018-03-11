@@ -1,5 +1,5 @@
 hadashboard:
-  dash_url: http://jasper:5050
+  dash_url: http://mickey:5050
 AppDaemon:
   #logfile: /var/log/appdaemon/appdaemon.log
   #errorfile: /var/log/appdaemon/appdaemon.err
@@ -18,5 +18,5 @@ AppDaemon:
   #api_ssl_certificate: <path/to/root/CA/cert>
   #api_ssl_key: <path/to/root/CA/key>
 HASS:
-  ha_url: http://localhost:8123
+  ha_url: http://mickey:8123
   #  ha_key: <some key>
